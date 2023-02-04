@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Stone List</h1>
+
+{% for stone in stones %}
+  <div class="card">
+    <div class="card-content">
+      <span class="card-title">{{ stone.name }}</span>
+      <p>Color: {{ stone.color }}</p>
+      <p>Description: {{ stone.ability }}</p>
+    </div>
+  </div>
+{% endfor %}
+
+{% endblock %}
