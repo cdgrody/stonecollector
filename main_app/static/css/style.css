@@ -29,3 +29,19 @@ a {
 ul {
     list-style: none;
 }
+
+.card-content {
+  color: black;
+}
+
+.card-content:hover {
+  border: solid blue;
+  cursor: pointer;
+}
+
+.card-content-detail {
+  font-size: 22px;
+  background: lightblue;
+  padding: 0px;
+  margin: 0px;
+}

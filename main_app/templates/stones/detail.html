@@ -2,15 +2,12 @@
 
 <h1>Stone List</h1>
 
-{% for stone in stones %}
 <div class="card">
-  <a href="{% url 'detail' stone.id %}">
-    <div class="card-content">
-      <span class="card-title">{{ stone.name }}</span>
+    <div class="card-content-detail">
+      <span class="card-detail">{{ stone.name }}</span>
       <p>Color: {{ stone.color }}</p>
       <p>Color: {{ stone.numberOfAppearances }}</p>
       <p>Description: {{ stone.description|linebreaks }}</p>
     </div>
-  </a>
 </div>
-{% endfor %} {% endblock %}
+{% endblock %}
