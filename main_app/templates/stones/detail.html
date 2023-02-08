@@ -1,17 +1,42 @@
 {% extends 'base.html' %} {% block content %}
 
-<h1>Stone List</h1>
+<h1>Stone Detail</h1>
 
+<div class="row">
+  <div class="col s6">
 <div class="card">
-    <div class="card-content-detail">
-      <span class="card-detail">{{ stone.name }}</span>
-      <p>Color: {{ stone.color }}</p>
-      <p>Number of Appearances: {{ stone.numberOfAppearances }}</p>
-      <p>Description: {{ stone.description|linebreaks }}</p>
-    </div>
-    <div class="card-action">
-      <a href="{% url 'stones_update' stone.id %}">Edit</a>
-      <a href="{% url 'stones_delete' stone.id %}">Delete</a>
-    </div>
+  <div class="card-content">
+    <span class="card">{{ stone.name }}</span>
+    <p>Color: {{ stone.color }}</p>
+    <p>Number of Appearances: {{ stone.numberOfAppearances }}</p>
+    <p>Description: {{ stone.description|linebreaks }}</p>
+  </div>
+  <div class="card-action">
+    <a href="{% url 'stones_update' stone.id %}">Edit</a>
+    <a href="{% url 'stones_delete' stone.id %}">Delete</a>
+  </div>
+  </div>
 </div>
+<div class="col s6">
+  <table class="striped">
+    <thead>
+      <tr>
+        <th>Stone User</th>
+        <th>Is a Hero</th>
+        <th>Used in Phase</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for weilder in stone.weilder_set.all %}
+      <tr>
+        <td>{{weilder.character}}</td>
+        <td>{{weilder.is_hero}}</td>
+        <td>{{weilder.phase_of_use}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+</div>
+
 {% endblock %}
