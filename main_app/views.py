@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Stone
 
 # stones = [
@@ -23,3 +24,15 @@ def stones_index(request):
 def stones_detail(request, stone_id):
     stone = Stone.objects.get(id=stone_id)
     return render(request, 'stones/detail.html', {'stone': stone})
+
+class StoneCreate(CreateView):
+    model = Stone
+    fields = '__all__'
+
+class StoneUpdate(UpdateView):
+    model = Stone
+    fields = ['color', 'numberOfAppearances', 'description']
+
+class StoneDelete(DeleteView):
+    model = Stone
+    success_url = '/stones'

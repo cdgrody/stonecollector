@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 class Stone(models.Model):
@@ -11,4 +12,7 @@ class Stone(models.Model):
 
     def __str__(self):
         return f'The {self.name} has made {self.numberOfAppearances} appearances and is {self.color}.'
+
+    def get_absolute_url(self):
+        return reverse('detail', kwargs={'stone_id': self.id})
 

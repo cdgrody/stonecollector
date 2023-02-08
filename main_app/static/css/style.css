@@ -23,7 +23,7 @@ footer.page-footer {
 a {
     text-decoration: none;
     color: white;
-    font-size: 32px;
+    font-size: 16px;
 }
 
 ul {
@@ -40,7 +40,7 @@ ul {
 }
 
 .card-content-detail {
-  font-size: 22px;
+  font-size: 16px;
   background: lightblue;
   padding: 0px;
   margin: 0px;

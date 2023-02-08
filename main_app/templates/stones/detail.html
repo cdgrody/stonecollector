@@ -9,5 +9,9 @@
       <p>Color: {{ stone.numberOfAppearances }}</p>
       <p>Description: {{ stone.description|linebreaks }}</p>
     </div>
+    <div class="card-action">
+      <a href="{% url 'stones_update' stone.id %}">Edit</a>
+      <a href="{% url 'stones_delete' stone.id %}">Delete</a>
+    </div>
 </div>
 {% endblock %}
