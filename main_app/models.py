@@ -1,13 +1,13 @@
 from django.db import models
 from django.urls import reverse
 
+COLORS = (('R', 'Red'), ('P', 'Purple'), ('Y', 'Yellow'), ('O', 'Orange'), ('B', 'Blue'), ('G', 'Green'))
+
 # Create your models here.
 class Stone(models.Model):
     name = models.CharField(max_length=100)
-    # numberOptions = [0,1,2,3,4,5,6,7,8,9,10]
-    # colorOptions = ['red', 'purple', 'yellow', 'orange', 'blue', 'green', 'black', 'white', 'tansparent'] make these tuples
-    numberOfAppearances = models.PositiveSmallIntegerField()
-    color = models.CharField(max_length=100)
+    numberOfAppearances = models.PositiveSmallIntegerField(default=0)
+    color = models.CharField(max_length=100, choices=COLORS)
     description = models.TextField()
 
     def __str__(self):
@@ -16,3 +16,11 @@ class Stone(models.Model):
     def get_absolute_url(self):
         return reverse('detail', kwargs={'stone_id': self.id})
 
+class Weilder(models.Model):
+    character = models.CharField(max_length=100)
+    is_hero = models.BooleanField()
+    phase_of_use = models.PositiveSmallIntegerField()
+    stone = models.ForeignKey(Stone, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.character} in Phase {self.phase_of_use}'
