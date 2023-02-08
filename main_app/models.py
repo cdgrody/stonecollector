@@ -1,14 +1,18 @@
 from django.db import models
 from django.urls import reverse
 
-COLORS = (('R', 'Red'), ('P', 'Purple'), ('Y', 'Yellow'), ('O', 'Orange'), ('B', 'Blue'), ('G', 'Green'))
+STONE_COLORS = (('R', 'Red'), ('P', 'Purple'), ('Y', 'Yellow'), ('O', 'Orange'), ('B', 'Blue'), ('G', 'Green'),)
 
 # Create your models here.
 class Stone(models.Model):
     name = models.CharField(max_length=100)
     numberOfAppearances = models.PositiveSmallIntegerField(default=0)
-    color = models.CharField(max_length=100, choices=COLORS)
     description = models.TextField()
+    color = models.CharField(
+        max_length=100, 
+        choices=STONE_COLORS,
+        default=STONE_COLORS[0][1]
+    )
 
     def __str__(self):
         return f'The {self.name} has made {self.numberOfAppearances} appearances and is {self.color}.'
