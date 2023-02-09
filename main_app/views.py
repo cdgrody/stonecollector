@@ -1,12 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Stone
-
-# stones = [
-#   {'name': 'Power Stone', 'color': 'Purple', 'ability': 'Grants the user immense physical strength and energy projection'},
-#   {'name': 'Reality Stone', 'color': 'Red', 'ability': 'Allows the user to manipulate reality and change physical laws'},
-#   {'name': 'Space Stone', 'color': 'Blue', 'ability': 'Allows the user to manipulate space and teleport to other locations'},
-# ]
+from .forms import WeilderForm
 
 # Create your views here.
 def home(request):
@@ -23,7 +18,8 @@ def stones_index(request):
 
 def stones_detail(request, stone_id):
     stone = Stone.objects.get(id=stone_id)
-    return render(request, 'stones/detail.html', {'stone': stone})
+    weilder_form = WeilderForm()
+    return render(request, 'stones/detail.html', {'stone': stone, 'weilder_form': weilder_form})
 
 class StoneCreate(CreateView):
     model = Stone
@@ -36,3 +32,12 @@ class StoneUpdate(UpdateView):
 class StoneDelete(DeleteView):
     model = Stone
     success_url = '/stones'
+
+
+def add_weilder(request, stone_id):
+    form = WeilderForm(request.POST)
+    if form.is_valid():
+        new_weilder = form.save(commit=False)
+        new_weilder.stone_id = stone_id
+        new_weilder.save()
+    return redirect('detail', stone_id=stone_id)

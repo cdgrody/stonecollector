@@ -4,39 +4,46 @@
 
 <div class="row">
   <div class="col s6">
-<div class="card">
-  <div class="card-content">
-    <span class="card">{{ stone.name }}</span>
-    <p>Color: {{ stone.color }}</p>
-    <p>Number of Appearances: {{ stone.numberOfAppearances }}</p>
-    <p>Description: {{ stone.description|linebreaks }}</p>
+    <div class="card">
+      <div class="card-content">
+        <span class="card">{{ stone.name }}</span>
+        <p>Color: {{ stone.color }}</p>
+        <p>Number of Appearances: {{ stone.numberOfAppearances }}</p>
+        <p>Description: {{ stone.description|linebreaks }}</p>
+      </div>
+      <div class="card-action">
+        <a href="{% url 'stones_update' stone.id %}">Edit</a>
+        <a href="{% url 'stones_delete' stone.id %}">Delete</a>
+      </div>
+    </div>
   </div>
-  <div class="card-action">
-    <a href="{% url 'stones_update' stone.id %}">Edit</a>
-    <a href="{% url 'stones_delete' stone.id %}">Delete</a>
-  </div>
+  <div class="col s6">
+    <form action="{% url 'add_weilder' stone.id %}" method="POST">
+      {% csrf_token %} {{ weilder_form.as_p }}
+      <input type="submit" class="btn" value="Add Weilder" />
+    </form>
+    <table class="striped">
+      <thead>
+        <tr>
+          <th>Stone User</th>
+          <th>Is a Hero</th>
+          <th>Used in Phase</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for weilder in stone.weilder_set.all %}
+        <tr>
+          <td>{{weilder.character}}</td>
+          <td>{{weilder.is_hero}}</td>
+          <td>{{weilder.phase_of_use}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </div>
 </div>
-<div class="col s6">
-  <table class="striped">
-    <thead>
-      <tr>
-        <th>Stone User</th>
-        <th>Is a Hero</th>
-        <th>Used in Phase</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for weilder in stone.weilder_set.all %}
-      <tr>
-        <td>{{weilder.character}}</td>
-        <td>{{weilder.is_hero}}</td>
-        <td>{{weilder.phase_of_use}}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-</div>
-</div>
-
+<script>
+  const heroEl = document.getElementById('id_is_hero');
+  M.FormSelect.init(heroEl);
+</script>
 {% endblock %}

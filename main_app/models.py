@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 
 STONE_COLORS = (('R', 'Red'), ('P', 'Purple'), ('Y', 'Yellow'), ('O', 'Orange'), ('B', 'Blue'), ('G', 'Green'),)
+IS_HERO = ((True, 'Yes'), (False, 'No'),)
 
 # Create your models here.
 class Stone(models.Model):
@@ -22,7 +23,7 @@ class Stone(models.Model):
 
 class Weilder(models.Model):
     character = models.CharField(max_length=100)
-    is_hero = models.BooleanField()
+    is_hero = models.BooleanField(choices=IS_HERO)
     phase_of_use = models.PositiveSmallIntegerField()
     stone = models.ForeignKey(Stone, on_delete=models.CASCADE)
 
