@@ -7,6 +7,10 @@
             <p>Released: {{ movie.release_date }}</p>
             <p>Film Type: {{ movie.is_ensemble }}</p>
         </div>
+        <div class="card-action">
+            <a href="{% url 'movies_update' movie.id %}">Edit</a>
+            <a href="{% url 'movies_delete' movie.id %}">Delete</a>
+          </div>
     </div>
 
 {% endblock %}

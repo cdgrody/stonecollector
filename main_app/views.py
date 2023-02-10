@@ -32,7 +32,7 @@ class StoneUpdate(UpdateView):
 
 class StoneDelete(DeleteView):
     model = Stone
-    success_url = '/stones'
+    success_url = '/movies'
 
 
 def add_weilder(request, stone_id):
@@ -50,6 +50,16 @@ class MovieList(ListView):
 
 class MovieDetail(DetailView):
     model = Movie
+
+
+class MovieUpdate(UpdateView):
+    model = Movie
+    fields = ['release_date', 'is_ensemble']
+
+
+class MovieDelete(DeleteView):
+    model = Movie
+    success_url = '/stones'
 
 
 class MovieCreate(CreateView):
