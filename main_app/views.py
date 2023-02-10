@@ -30,7 +30,7 @@ def stones_detail(request, stone_id):
 
 class StoneCreate(CreateView):
     model = Stone
-    fields = '__all__'
+    fields = ['name', 'numberOfAppearances', 'description', 'color']
 
 class StoneUpdate(UpdateView):
     model = Stone
@@ -38,7 +38,7 @@ class StoneUpdate(UpdateView):
 
 class StoneDelete(DeleteView):
     model = Stone
-    success_url = '/movies'
+    success_url = '/stones'
 
 
 def add_weilder(request, stone_id):
@@ -65,7 +65,7 @@ class MovieUpdate(UpdateView):
 
 class MovieDelete(DeleteView):
     model = Movie
-    success_url = '/stones'
+    success_url = '/movies'
 
 
 class MovieCreate(CreateView):
