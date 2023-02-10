@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Stone
+from .models import Stone, Movie
 from .forms import WeilderForm
 
 # Create your views here.
@@ -41,3 +41,7 @@ def add_weilder(request, stone_id):
         new_weilder.stone_id = stone_id
         new_weilder.save()
     return redirect('detail', stone_id=stone_id)
+
+class MovieCreate(CreateView):
+    model = Movie
+    fields = '__all__'

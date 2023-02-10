@@ -3,6 +3,7 @@ from django.urls import reverse
 
 STONE_COLORS = (('R', 'Red'), ('P', 'Purple'), ('Y', 'Yellow'), ('O', 'Orange'), ('B', 'Blue'), ('G', 'Green'),)
 IS_HERO = ((True, 'Yes'), (False, 'No'),)
+MOVIE_TYPE = ((True, 'Ensemble'), (False, 'Solo'),)
 
 # Create your models here.
 class Stone(models.Model):
@@ -16,7 +17,7 @@ class Stone(models.Model):
     )
 
     def __str__(self):
-        return f'The {self.name} has made {self.numberOfAppearances} appearances and is {self.color}.'
+        return f'{self.name}'
 
     def get_absolute_url(self):
         return reverse('detail', kwargs={'stone_id': self.id})
@@ -28,4 +29,13 @@ class Weilder(models.Model):
     stone = models.ForeignKey(Stone, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.character} in Phase {self.phase_of_use}'
+        return f'{self.character}'
+
+    class Meta:
+        ordering = ['-phase_of_use', 'character', 'is_hero']
+
+
+class Movie(models.Model):
+    title = models.CharField(max_length=100)
+    is_ensemble = models.BooleanField( 'Ensemble or Solo Film', choices=MOVIE_TYPE, default=True)
+    release_date = models.DateField('Release Year')
