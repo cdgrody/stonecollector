@@ -39,3 +39,6 @@ class Movie(models.Model):
     title = models.CharField(max_length=100)
     is_ensemble = models.BooleanField( 'Ensemble or Solo Film', choices=MOVIE_TYPE, default=True)
     release_date = models.DateField('Release Year')
+
+    def get_absolute_url(self):
+        return reverse('detail', kwargs={'movie_id': self.id})
