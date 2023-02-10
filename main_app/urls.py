@@ -11,5 +11,6 @@ urlpatterns = [
     path('stones/<int:pk>/delete', views.StoneDelete.as_view(), name='stones_delete'),
     path('stones/<int:stone_id>/add_weilder', views.add_weilder, name='add_weilder'),
     path('movies/', views.MovieList.as_view(), name='movies_index'),
+    path('movies/<int:pk>', views.MovieDetail.as_view(), name='movies_detail'),
     path('movies/create', views.MovieCreate.as_view(), name='movies_create'),
 ]

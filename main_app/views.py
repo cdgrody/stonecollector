@@ -47,6 +47,11 @@ def add_weilder(request, stone_id):
 class MovieList(ListView):
     model = Movie
 
+
+class MovieDetail(DetailView):
+    model = Movie
+
+
 class MovieCreate(CreateView):
     model = Movie
     fields = '__all__'

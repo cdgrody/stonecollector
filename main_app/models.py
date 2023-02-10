@@ -40,5 +40,11 @@ class Movie(models.Model):
     is_ensemble = models.BooleanField( 'Ensemble or Solo Film', choices=MOVIE_TYPE, default=True)
     release_date = models.DateField('Release Year')
 
+    def __str__(self):
+        return f'{self.title}'
+
     def get_absolute_url(self):
-        return reverse('detail', kwargs={'movie_id': self.id})
+        return reverse('movies_detail', kwargs={'pk': self.id})
+
+    class Meta:
+        ordering = ['-release_date']
