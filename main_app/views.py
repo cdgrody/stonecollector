@@ -19,8 +19,14 @@ def stones_index(request):
 
 def stones_detail(request, stone_id):
     stone = Stone.objects.get(id=stone_id)
+    id_list = stone.movies.all().values_list('id')
+    movies_stone_doesnt_have = Movie.objects.exclude(id__in=id_list)
     weilder_form = WeilderForm()
-    return render(request, 'stones/detail.html', {'stone': stone, 'weilder_form': weilder_form})
+    return render(request, 'stones/detail.html', {
+        'stone': stone, 
+        'weilder_form': weilder_form,
+        'movies': movies_stone_doesnt_have
+    })
 
 class StoneCreate(CreateView):
     model = Stone
@@ -65,3 +71,14 @@ class MovieDelete(DeleteView):
 class MovieCreate(CreateView):
     model = Movie
     fields = '__all__'
+
+
+def assoc_movie(request, stone_id, movie_id):
+    print('stone id here', stone_id)
+    Stone.objects.get(id=stone_id).movies.add(movie_id)
+    return redirect('detail', stone_id=stone_id)
+
+def unassoc_movie(request, stone_id, movie_id):
+    print('stone id here', stone_id)
+    Stone.objects.get(id=stone_id).movies.remove(movie_id)
+    return redirect('detail', stone_id=stone_id)
